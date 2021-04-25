@@ -22,6 +22,8 @@ int main(int argc, char **argv){
   printf("%s\n", lista_inicial -> lines[0][1]);
   printf("%s\n", lista_inicial -> lines[0][2]);
   printf("%s\n", lista_inicial -> lines[0][3]);
+  // Definimos la cantidad de procesos del input
+  int cantidad_procesos_a_ejecutar = lista_inicial -> len;
   // Definimos la cantidad de colas
   int cantidad_colas = atoi(argv[3]);
   // q es parte del input y sirve para calcular el quantium

@@ -2,6 +2,8 @@
 #include <stdio.h>  // FILE, fopen, fclose, etc.
 #include <string.h> // strtok, strcpy, etc.
 #include <stdlib.h> // malloc, calloc, free, etc.
+#include <stdbool.h>
+
 
 // Import the header file of this module
 #include "manager.h"
@@ -80,12 +82,6 @@ void input_file_destroy(InputFile* input_file)
   // Free the input_file itself
   free(input_file);
 }
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-#include "struct.h"
 
 Proceso* proceso_init(int pid, char* nombre, int prioridad, int inicio, int duracion) {
     Proceso* p = malloc(sizeof(Proceso));
