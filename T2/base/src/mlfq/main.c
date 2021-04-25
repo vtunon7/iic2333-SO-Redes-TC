@@ -2,23 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "struct.h"
+#include "../file_manager/manager.h"
 
 
 int main(int argc, char **argv){
   FILE* fp;
   Proceso* head;
-  Queue* queue;
+  Queue* queue = NULL;
   int prioridad, inicio, duracion;
   int pid = 0;
   int quantum = 0;
   bool listo = false;
   bool running = false;
   int cantidad_procesos = 1;
-  queue = queue_init();
   char* nombre = malloc(sizeof(char)*32);
   Proceso** procesos = malloc(sizeof(Proceso*)*cantidad_procesos);
-  printf("Hello T2we!\n");
+  InputFile* lista_inicial = read_file(argv[1]);
+  //printf("%i\n", lista_inicial -> len);
+  printf("%s\n", lista_inicial -> lines[0][1]);
+  printf("%s\n", lista_inicial -> lines[0][2]);
+  printf("%s\n", lista_inicial -> lines[0][3]);
+  // Definimos la cantidad de colas
+  int cantidad_colas = atoi(argv[3]);
+  // q es parte del input y sirve para calcular el quantium
+  int q = atoi(argv[4]);
+  // creamos nuestro arreglo de colas
+  Queue* arreglo_colas[cantidad_colas]; 
+  for (int i = 0; i < cantidad_colas; i++)
+  {
+    /* code */
+    arreglo_colas[i] = queue_init(i, cantidad_colas, q);
+  }
+  
+  printf("cantidad_colas: %i\n", cantidad_colas);
 
   if (argc < 5){
     fprintf(stderr, "Uso: %s <file> <output> <Q> <q> <S>\n", argv[0]);
@@ -56,7 +72,8 @@ int main(int argc, char **argv){
       pid++;
   }
   fclose(fp);
-
+}
+/**
   FILE* fpout = fopen(argv[2], "w");
     for (int i=0; i < pid; i++) {
         fprintf(fpout, "%s, %i, %i, %i, %i, %i\n", procesos[i] -> nombre, procesos[i] -> turnos_cpu, 
@@ -65,3 +82,4 @@ int main(int argc, char **argv){
     }
     fclose(fpout); 
 }
+*/

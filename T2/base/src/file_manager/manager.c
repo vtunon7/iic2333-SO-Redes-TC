@@ -80,3 +80,45 @@ void input_file_destroy(InputFile* input_file)
   // Free the input_file itself
   free(input_file);
 }
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include "struct.h"
+
+Proceso* proceso_init(int pid, char* nombre, int prioridad, int inicio, int duracion) {
+    Proceso* p = malloc(sizeof(Proceso));
+    p -> pid = pid;
+    strcpy(p -> nombre, nombre);
+    p -> prioridad = prioridad;
+    p -> inicio = inicio;
+    p -> duracion = duracion;
+    p -> estado = 1;
+    //p -> finished = false;
+    //p -> total_counter = 0;
+    //p -> turnaround_time = 0;
+    //p -> response_time = -1;
+    //p -> waiting_time = 0;
+    //p -> turnos_cpu = 0;
+    //p -> interrupciones = 0;
+    return p;
+}
+
+Queue* queue_init(int lugar_en_la_cola, int cantidad_colas, int q) {
+    Queue* cola = malloc(sizeof(Queue));
+    cola -> prioridad = cantidad_colas - lugar_en_la_cola;
+    cola -> quantium = (cantidad_colas - (cola -> prioridad))*q;
+    cola -> head = NULL;
+    cola -> tail = NULL;
+    cola -> largo = 0;
+    return q;
+}
+
+Node* node_init(Proceso* proceso) {
+    Node* n = malloc(sizeof(Node));
+    n -> prev = NULL;
+    n -> next = NULL;
+    n -> proceso = proceso;
+    return n;
+}
