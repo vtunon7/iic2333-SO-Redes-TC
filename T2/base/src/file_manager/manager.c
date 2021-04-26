@@ -82,39 +82,32 @@ void input_file_destroy(InputFile* input_file)
   // Free the input_file itself
   free(input_file);
 }
-
-Proceso* proceso_init(int pid, char* nombre, int prioridad, int inicio, int duracion) {
+// char* nombre, int pid, int prioridad, int cycles, int wait, int waiting_delay
+Proceso* proceso_init() {
     Proceso* p = malloc(sizeof(Proceso));
-    p -> pid = pid;
-    strcpy(p -> nombre, nombre);
-    p -> prioridad = prioridad;
-    p -> inicio = inicio;
-    p -> duracion = duracion;
     p -> estado = 1;
-    //p -> finished = false;
+    p -> in_queue = false;
+    p -> finished = false;
+    /** p -> pid = pid;
+    //strcpy(p -> nombre, nombre);
+    //p -> prioridad = prioridad;
+    //p -> cycles = cycles;
+    //p -> wait = wait;
+    //p -> waiting_delay = waiting_delay;
     //p -> total_counter = 0;
     //p -> turnaround_time = 0;
     //p -> response_time = -1;
     //p -> waiting_time = 0;
     //p -> turnos_cpu = 0;
-    //p -> interrupciones = 0;
+    //p -> interrupciones = 0; */
     return p;
 }
 
-Queue* queue_init(int lugar_en_la_cola, int cantidad_colas, int q) {
+Queue* queue_init(int lugar_en_la_cola, int cantidad_colas, int q, int cantidad_procesos_a_ejecutar) {
     Queue* cola = malloc(sizeof(Queue));
+    cola -> lista_procesos;
     cola -> prioridad = cantidad_colas - lugar_en_la_cola;
     cola -> quantium = (cantidad_colas - (cola -> prioridad))*q;
-    cola -> head = NULL;
-    cola -> tail = NULL;
-    cola -> largo = 0;
-    return q;
-}
-
-Node* node_init(Proceso* proceso) {
-    Node* n = malloc(sizeof(Node));
-    n -> prev = NULL;
-    n -> next = NULL;
-    n -> proceso = proceso;
-    return n;
+    cola -> cantidad_procesos = 0;
+    return cola;
 }
